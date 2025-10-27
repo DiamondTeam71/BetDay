@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login & Registration Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+  font-weight: bold;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("assets/images/ponno.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+.container {
+  width: 400px;
+  background: #fff;
+  padding: 20px;
+  margin: 10px;
+  border: 4px solid black; 
+  border-radius: 21px;
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+h2 {
+  text-align: center;  
+  margin-bottom: 15px; 
+  color: #333;  
+  background: yellow;
+  padding: 3px;
+  margin-left: 25px;
+  margin-right: 25px;
+  border-radius: 15px;
+  border: 4px solid black;
+}
+.form-group {
+  margin-bottom: 10px;
+  position: relative;
+}
+.form-group i.left-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #ff5e62;
+}
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 40px 10px 35px;
+  border-radius: 6px;
+  border: 3px solid black;
+  font-size: 14px;
+}
+.form-group input:disabled {
+  background-color: #f5f5f5;
+  font-weight: bold;
+  text-align: center;
+}
+.form-group .toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #999;
+  padding: 5px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.terms {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.terms input { width: auto; margin-right: 8px; }
+.terms a {
+  color: #ff5e62;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+button {
+  width: calc(100% - 120px); 
+  margin: 8px 60px;          
+  padding: 12px;
+  background: linear-gradient(135deg, #ff9966, #ff5e62);
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  border: 3px solid black;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+}
+button:hover { opacity: 0.9; }
+.toggle-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+.toggle-text span {
+  color: #ff5e62;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.hidden { display: none; }
+.phone-group { display: flex; gap: 5px; margin-bottom: 10px; }
+.phone-group input:first-child {
+  width: 65px;
+  text-align: center;
+  padding: 10px 5px;
+  font-weight: bold;
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.phone-group input:last-child { flex: 1; }
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  max-width: 90%;
+  text-align: left;
+  border: 4px solid black;
+  margin: 30px;
+  position: relative;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.modal-content h3 { margin-bottom: 10px; color: #333; }
+.close-btn {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+}
+.password-check-input {
+  width: 100%;
+  padding: 10px 40px 10px 35px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+.password-check-input.weak { color: red; }
+.password-check-input.medium { color: orange; }
+.password-check-input.strong { color: green; } 
+
+.forgot-password-area .input-group input {
+  width: 100%;
+  padding: 10px 35px 10px 35px;
+  border-radius: 6px;
+  border: 3px solid black;
+  font-size: 14px;
+}
+.forgot-password-area .input-group i.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #ff5e62;
+}
+.popup-button-group button.popup-save-btn {
+  background: linear-gradient(135deg, #ff6b6b, #ff4757);
+  color: #fff;
+}
+.popup-button-group button.popup-cancel-btn {
+  background: linear-gradient(135deg, #576574, #2f3542);
+  color: #fff;
+}
+.overlay-popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.popup-box {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  border: 4px solid black;
+}
+.popup-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div id="loginForm">
+  <h2><i class="fas fa-user"></i> User Login</h2>
+  <div class="form-group">
+    <i class="fa fa-user left-icon"></i>
+    <input type="text" placeholder="Username or Email">
+  </div>
+  <div class="form-group">
+    <i class="fa fa-lock left-icon"></i>
+    <input type="password" id="loginPassword" placeholder="Password">
+    <i class="fa fa-eye toggle-eye" onclick="togglePassword(this, 'loginPassword')"></i>
+  </div>
+  <p style="text-align: right; color: grey; text-decoration: underline; cursor: pointer; margin-left: 5px; font-size: 15px;"
+   onclick="openForgotPasswordPopup()">
+   Forgot Password?
+  </p>
+  <button><i class="fas fa-lock-open"></i> Login</button>
+  <p class="toggle-text">Don't have an account? <span onclick="toggleForm()">Register</span></p>
+</div>
+
+<div id="registerForm" class="hidden">
+  <h2><i class="fas fa-user"></i> User Registration</h2>
+  <div class="form-group">
+    <i class="fa fa-envelope left-icon"></i>
+    <input type="email" id="regEmail" placeholder="Email">
+  </div>
+  <div class="form-group">
+    <i class="fa fa-user left-icon"></i>
+    <input type="text" id="regUsername" placeholder="Username (8 chars)" maxlength="8">
+  </div>
+  <div class="form-group phone-group">
+    <input style="border: 3px solid black;" type="text" value="+880" disabled>
+    <input type="text" placeholder="Phone Number">
+  </div>
+  <div class="form-group">
+    <i class="fa fa-calendar left-icon"></i>
+    <input type="date">
+  </div>
+  <div class="form-group">
+    <i class="fa fa-venus-mars left-icon"></i>
+    <select>
+      <option value="">Select Gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <i class="fa fa-lock left-icon"></i>
+    <input type="password" id="regPassword" placeholder="Password" oninput="checkPasswordStrength()">
+    <i class="fa fa-eye toggle-eye" onclick="togglePassword(this, 'regPassword')"></i>
+  </div>
+  <div class="form-group">
+    <i class="fa fa-lock left-icon"></i>
+    <input type="password" id="regConfirmPassword" placeholder="Confirm Password">
+    <i class="fa fa-eye toggle-eye" onclick="togglePassword(this, 'regConfirmPassword')"></i>
+  </div>
+  <div class="form-group">
+    <input type="text" id="passwordCheck" class="password-check-input" disabled value="">
+  </div>
+  <div class="terms">
+    <input type="checkbox">
+    <label>I agree to the <a onclick="openModal()">Terms & Conditions</a></label>
+  </div>
+  <button><i class="fas fa-location-arrow"></i> Register</button>
+  <p class="toggle-text">Already have an account? <span onclick="toggleForm()">Login</span></p>
+</div>
+
+<div class="modal" id="termsModal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h3 style="border: 3px solid black; background: yellow; padding: 4px; border-radius: 14px; text-align: center; margin-left: 25px; margin-right: 25px;">Terms & Conditions</h3>
+    <p style="border: 3px solid black; background: wheat; padding: 4px; border-radius: 14px; text-align: center;">
+      1. আপনার দেওয়া সকল তথ্য সঠিক ও বৈধ হতে হবে।<br>
+2. অ্যাকাউন্টটি কেবল বৈধ উদ্দেশ্যে ব্যবহার করতে হবে; কোনো অবৈধ কার্যক্রমে ব্যবহার করা যাবে না।<br>
+3. গেমিং বা বেটিংয়ের সময় আপনার টাকা বাড়তে বা কমতে পারে।<br>
+4. আমরা আপনার গোপনীয়তা রক্ষা করি, তবে সম্পূর্ণ নিরাপত্তা আমরা নিশ্চিত করতে পারি না।<br>
+5. নিয়ম লঙ্ঘন করলে অ্যাকাউন্ট স্থগিত বা বাতিল হতে পারে।<br>
+6. রেজিস্ট্রেশন করার সঙ্গে সঙ্গে আপনি এই শর্তাবলী এবং এর ভবিষ্যত আপডেটগুলো মেনে নিচ্ছেন।<br>
+    </p>
+  </div>
+</div>
+
+<div class="overlay-popup" id="forgotPasswordPopup">
+  <div class="popup-box">
+    <span class="popup-close-btn" onclick="closeForgotPasswordPopup()">&times;</span>
+    <h3 style="border: 3px solid black; border-radius: 14px; padding: 5px; margin: 10px; margin-bottom: 20px; text-align: center; background: yellow">Forgot Password</h3>
+    <p style="border: 3px solid black; background: wheat; padding: 4px; border-radius: 14px; text-align: center; margin-bottom: 15px;">আপনি আপনার লগইন কৃত মেইল, কে নিচে বসিয়ে "Submit" করে দিন। ঠিক কিছুক্ষণ পর আপনার মেইলে পাসওয়ার্ড রিসেট করার জন্য একটি লিংক চলে যাবে!</p>
+    <div class="forgot-password-area">
+      <div class="input-group">
+        <input style="text-align: center; border-radius: 18px; margin-bottom: 10px;" type="email" id="forgotEmail" placeholder="✉️ Enter your email">
+      </div>
+      <div class="popup-button-group">
+        <button class="popup-save-btn" onclick="submitForgotPassword()"><i class="fas fa-paper-plane"></i> Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const firebaseConfig = {
+  apiKey: "AIzaSyAtqi7D6Pn6JOdrscG1gBbpaB2R3PA_3Fk",
+  authDomain: "srabonprogrammer-98739.firebaseapp.com",
+  databaseURL: "https://srabonprogrammer-98739-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "srabonprogrammer-98739",
+  storageBucket: "srabonprogrammer-98739.appspot.com",
+  messagingSenderId: "213761619015",
+  appId: "1:213761619015:web:YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+auth.onAuthStateChanged(user => {
+  if (user) {
+    window.location.href = "UserProfileDashboard.html";
+  }
+});
+
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const regEmail = document.getElementById('regEmail');
+const regUsername = document.getElementById('regUsername');
+const regPassword = document.getElementById('regPassword');
+const regConfirmPassword = document.getElementById('regConfirmPassword');
+const phoneInput = document.querySelector('.phone-group input:last-child');
+const termsCheckbox = registerForm.querySelector('.terms input');
+
+function toggleForm() {
+  loginForm.classList.toggle("hidden");
+  registerForm.classList.toggle("hidden");
+}
+
+function togglePassword(icon,inputId){
+  const input=document.getElementById(inputId);
+  if(input.type==="password"){
+    input.type="text";
+    icon.classList.replace("fa-eye","fa-eye-slash");
+  }else{
+    input.type="password";
+    icon.classList.replace("fa-eye-slash","fa-eye");
+  }
+}
+
+function checkPasswordStrength(){
+  const pwd=regPassword.value;
+  const checkEl=document.getElementById('passwordCheck');
+  if(!pwd){checkEl.value='';checkEl.className='password-check-input';return;}
+  const lengthReq=pwd.length>=8;
+  const upperReq=/[A-Z]/.test(pwd);
+  const lowerReq=/[a-z]/.test(pwd);
+  const numberReq=/[0-9]/.test(pwd);
+  const specialReq=/[!@#$%^&*(),.?":{}|<>]/.test(pwd);
+  if(lengthReq&&upperReq&&lowerReq&&numberReq&&specialReq){
+    checkEl.value='Password Check: Strong';
+    checkEl.className='password-check-input strong';
+  }
+  else if(lengthReq&&((upperReq&&lowerReq&&numberReq)||(lowerReq&&numberReq&&specialReq))){
+    checkEl.value='Password Check: Medium';
+    checkEl.className='password-check-input medium';
+  }
+  else{
+    checkEl.value='Password Check: Weak';
+    checkEl.className='password-check-input weak';
+  }
+}
+
+
+registerForm.querySelector('button').addEventListener('click',async()=>{
+  const email=regEmail.value.trim();
+  const username=regUsername.value.trim();
+  const password=regPassword.value;
+  const confirmPassword=regConfirmPassword.value;
+  const phone=phoneInput.value.trim();
+
+  if(!email||!username||!password||!confirmPassword||!phone){
+    alert('All fields required');
+    return;
+  }
+  if(!termsCheckbox.checked){
+    alert('You must accept Terms & Conditions');
+    return;
+  }
+  if(/\s/.test(username)||/\s/.test(password)){
+    alert('No spaces allowed in Username or Password');
+    return;
+  }
+  if(password!==confirmPassword){
+    alert('Password mismatch');
+    return;
+  }
+  if(!/^[0-9]{10}$/.test(phone)){
+    alert('Phone must be 10 digits');
+    return;
+  }
+
+  const usersRef=db.ref('users');
+  const snapshot=await usersRef.once('value');
+  const users=snapshot.val()||{};
+  for(let uid in users){
+    if(users[uid] && users[uid].username && users[uid].username.toLowerCase()===username.toLowerCase()){
+      alert('Username already exists');
+      return;
+    }
+    if(users[uid] && users[uid].phone && users[uid].phone===phone){
+      alert('Phone already exists');
+      return;
+    }
+  }
+
+  try{
+    const userCredential=await auth.createUserWithEmailAndPassword(email,password);
+    const user=userCredential.user;
+    await usersRef.child(user.uid).set({email,username,phone});
+    alert('Registered successfully!');
+    window.location.href="UserProfileDashboard.html";
+  }catch(err){
+    alert(err.message);
+  }
+});
+
+async function submitForgotPassword() {
+const input = document.getElementById('forgotEmail').value.trim();
+if (!input) return alert('Please enter email or username');
+
+try {
+let email = input;
+const snapshot = await db.ref('users').once('value');
+const users = snapshot.val() || {};
+let found = false;
+
+
+for (let uid in users) {  
+  if (users[uid] && users[uid].username && users[uid].username.toLowerCase() === input.toLowerCase()) {  
+    email = users[uid].email;  
+    found = true;  
+    break;  
+  }  
+}  
+
+if (!found && !input.includes('@')) {  
+  return alert('User not found');  
+}  
+
+await auth.sendPasswordResetEmail(email);  
+alert('Password reset email sent! Check your inbox.');  
+closeForgotPasswordPopup(); 
+} catch (err) {
+alert(err.message);
+}
+}
+
+ const termsModal = document.getElementById('termsModal');
+
+function openModal() {
+  termsModal.style.display = 'flex';
+}
+
+function closeModal() {
+  termsModal.style.display = 'none';
+}
+
+window.addEventListener('click', (e) => {
+  if (e.target === termsModal) {
+    closeModal();
+  }
+});
+
+loginForm.querySelector('button').addEventListener('click',async()=>{
+  const loginInput=loginForm.querySelector('input[type="text"]').value.trim();
+  const password=document.getElementById('loginPassword').value;
+
+  if(!loginInput||!password){
+    alert('All fields required');
+    return;
+  }
+
+  try{
+    let email=loginInput;
+    const snapshot=await db.ref('users').once('value');
+    const users=snapshot.val()||{};
+    let found=false;
+
+    for(let uid in users){
+      if(users[uid] && users[uid].username && users[uid].username.toLowerCase()===loginInput.toLowerCase()){
+        email=users[uid].email;
+        found=true;
+        break;
+      }
+    }
+
+    if(!found && !loginInput.includes('@')){
+      alert('User not found');
+      return;
+    }
+
+    await auth.signInWithEmailAndPassword(email,password);
+    alert('Login successful!');
+    window.location.href="UserProfileDashboard.html";
+  }catch(err){
+    alert(err.message);
+  }
+});
+</script>
+</body>
+</html>

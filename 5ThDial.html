@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>BetDay — Aviator!</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="assets/css/styles2.css">
+</head>
+<body>
+
+<header>
+  <img src="assets/images/logo.png" alt="Logo" class="header-logo">
+  Bet<span style="margin-left: -10px;" class="span-all">Day</span> — Aviator! 
+</header>
+
+<div class="balance-box">
+  ব্যালেন্স: <span id="userBalance">0</span> TK <i class="fas fa-coins"></i>
+</div>
+
+<div class="haga">
+  <div id="multiplierDisplay">1.00x</div>
+  <div id="multiplierBar"><div id="multiplierFill"></div></div>
+  <div id="crashDisplay">Waiting...</span></div>
+</div>
+
+<div class="main-content">
+  <div id="betSection" class="bet-box">
+    <input type="number" id="betAmount" placeholder="পরিমাণ: 5–10000" min="5" max="10000">
+    <button id="placeBetBtn">বেট প্লেস <i class="fas fa-hand-holding-usd"></i></button>
+  </div>
+
+  <div id="cashoutSection" class="bet-box hidden">
+    <button id="cashoutBtn"><i class="fas fa-cash-register"></i> ক্যাশআউট করুন</button>
+  </div>
+
+  <div class="make">
+    <h3><i class="fas fa-users"></i> আপনাদের তথ্য!</h3>
+    <ul id="userList"></ul>
+  </div>
+  
+  <div id="lastCrashes" style="margin-top:15px; font-size:18px; font-weight:bold;">
+  <i class="fas fa-history"></i>   ইতিহাস: <span id="crashHistory"></span>
+  </div>
+</div>
+
+<div id="enterPopup" class="popup-overlay">
+  <div class="popup-content">
+    <h2>আপনি কি প্রবেশ করতে চান?</h2>
+    <div class="popup-buttons">
+      <button id="yesBtn">YES</button>
+      <button id="noBtn">NO</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const enterPopup = document.getElementById('enterPopup');
+const yesBtn = document.getElementById('yesBtn');
+const noBtn = document.getElementById('noBtn');
+
+yesBtn.addEventListener('click', () => {
+  enterPopup.style.display = 'none';
+});
+
+noBtn.addEventListener('click', () => {
+  window.location.href = 'index.html';
+});
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script src="assets/js/script2.js">
+</script>
+</body>
+</html>

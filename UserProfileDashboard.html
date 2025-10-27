@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Profile Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles4.css">
+</head>
+<body>
+<div class="container">
+<h2><i class="fas fa-user-circle"></i> User Profile</h2>
+<img src="assets/images/logo.png" alt="User Photo" class="profile-pic">
+<div class="profile-info"><i class="fa fa-wallet"></i><span id="pBalance" class="value">0 TK</span><i class="fas fa-eye toggle-eye" title="Show/Hide Balance" onclick="toggleBalance(this)"></i></div>
+<div class="profile-info"><i class="fa fa-envelope"></i><span id="pEmail" class="value">চেন্জ করে নেন!</span></div>
+<div class="profile-info"><i class="fa fa-user"></i><span id="pUsername" class="value">চেন্জ করে নেন!</span></div>
+<div class="profile-info"><i class="fa fa-id-card"></i><span id="pUid" class="value">চেন্জ করে নেন!</span><i class="fas fa-copy copy-icon" title="Copy UID" onclick="copyUid()"></i></div>
+<div class="profile-info"><i class="fa fa-calendar"></i><span id="pDob" class="value">চেন্জ করে নেন!</span></div>
+<div class="profile-info"><i class="fa fa-venus-mars"></i><span id="pGender" class="value">চেন্জ করে নেন!</span></div>
+<div class="profile-info"><i class="fa fa-phone"></i><span id="pPhone" class="value">চেন্জ করে নেন!</span></div>
+<div class="button-group">
+<button onclick="openEditModal()"><i class="fas fa-edit"></i> Edit Profile</button>
+<button onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+<button onclick="gotoHome()"><i class="fas fa-home"></i> Home</button>
+<button onclick="openDepositModal()"><i class="fas fa-coins"></i> Deposit</button>
+<button onclick="openWithdrawModal()"><i class="fas fa-coins"></i> Withdraw</button>
+</div>
+</div>
+
+<div class="modal" id="editModal">
+<div class="modal-content">
+<span class="close-btn" onclick="closeEditModal()">&times;</span>
+<h3><i class="fas fa-pen-alt"></i> Edit Profile</h3>
+<div class="edit-section">
+<div class="form-group"><i class="fa fa-user left-icon"></i><input type="text" id="newUsername" placeholder="New Username"></div>
+<div class="form-group"><i class="fa fa-calendar left-icon"></i><input type="date" id="newDob"></div>
+<div class="form-group"><i class="fa fa-venus-mars left-icon"></i><select id="newGender"><option value="">Select Gender</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select></div>
+<div class="form-group"><i class="fa fa-phone left-icon"></i><input type="text" id="newPhone" placeholder="New Phone Number"></div>
+<div class="form-group"><i class="fa fa-lock left-icon"></i><input type="password" id="oldPassword" placeholder="Old Password"><i class="fa fa-eye toggle-eye" onclick="togglePassword('oldPassword',this)"></i></div>
+<div class="form-group"><i class="fa fa-lock left-icon"></i><input type="password" id="newPassword" placeholder="New Password"><i class="fa fa-eye toggle-eye" onclick="togglePassword('newPassword',this)"></i></div>
+<div class="form-group"><i class="fa fa-lock left-icon"></i><input type="password" id="confirmPassword" placeholder="Confirm Password"><i class="fa fa-eye toggle-eye" onclick="togglePassword('confirmPassword',this)"></i></div>
+<div class="button-group">
+<button class="save-btn" onclick="saveChanges()"><i class="fas fa-save"></i> Save Changes</button>
+<button class="cancel-btn" onclick="closeEditModal()"><i class="fas fa-times"></i> Cancel</button>
+</div>
+</div>
+</div>
+</div>
+
+<style>
+
+</style>
+
+<div class="modal" id="depositModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+  <div class="modal-content" style="background:#fff;padding:20px 25px;border-radius:12px;width:100%;max-width:400px;position:relative;">
+    <span class="close-btn" onclick="closeDepositModal()" style="position:absolute;top:10px;right:15px;font-size:22px;cursor:pointer;">&times;</span>
+    <h3 style="margin-bottom:20px;font-size:20px;"><i class="fas fa-coins"></i> Deposit Money</h3>
+    <div class="form-group" style="position:relative;margin-bottom:16px;">
+      <label style="display:block;margin-bottom:6px;">Select Method:</label>
+      <select id="depositMethod" style="width:100%;padding:10px 12px;border:4px solid black;border-radius:8px;font-size:16px;background:#fff;outline:none;">
+        <option value="">Select BKash/Nagad</option>
+        <option value="Bkash">Bkash</option>
+        <option value="Nagad">Nagad</option>
+      </select>
+    </div>
+    <div class="form-group" style="position:relative;margin-bottom:16px;">
+      <label style="display:block;margin-bottom:6px;">Admin Account:</label>
+      <input type="text" id="adminAccount" value="01234567890" readonly style="width:100%;padding:10px 12px;border:4px solid black;border-radius:8px;font-size:16px;background:#fff;outline:none;">
+      <i class="fas fa-copy copy-icon" onclick="copyAdminAccount()" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;color:#000;font-size:18px;"></i>
+    </div>
+    <div class="form-group" style="position:relative;margin-bottom:16px;">
+      <label style="display:block;margin-bottom:6px;">Amount:</label>
+      <input type="number" id="depositAmount" placeholder="Enter Amount" style="width:100%;padding:10px 12px;border:4px solid black;border-radius:8px;font-size:16px;background:#fff;outline:none;">
+    </div>
+    <div class="form-group" style="position:relative;margin-bottom:16px;">
+      <label style="display:block;margin-bottom:6px;">Transaction ID:</label>
+      <input type="text" id="depositTxnId" placeholder="Enter Transaction ID" style="width:100%;padding:10px 12px;border:4px solid black;border-radius:8px;font-size:16px;background:#fff;outline:none;">
+    </div>
+    <button class="save-btn" onclick="submitDeposit()" style="width:100%;padding:12px;background:#000;color:#fff;border:none;border-radius:10px;font-size:16px;cursor:pointer;">Submit Deposit</button>
+  </div>
+</div>
+
+<div class="modals" id="withdrawModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+  <div class="modal-content" style="background:#fff;padding:20px 25px;border-radius:12px;width:100%;max-width:400px;position:relative;">
+    <span class="close-btn" onclick="closeWithdrawModal()" style="position:absolute;top:10px;right:15px;font-size:22px;cursor:pointer;">&times;</span>
+    <h3 style="margin-bottom:20px;font-size:20px;"><i class="fas fa-money-bill-wave"></i> Withdraw Money</h3>
+    <div class="form-group" style="position:relative;margin-bottom:16px;">
+      <label style="display:block;margin-bottom:6px;">Select Method:</label>
+      <select id="withdrawMethod" style="width:100%;padding:10px 12px;border:4px solid black;border-radius:8px;font-size:16px;background:#fff;outline:none;">
+        <option value="">Select BKash/Nagad</option>
+        <option value="Bkash">Bkash</option>
+        <option value="Nagad">Nagad</option>
+      </select>
+    </div>
+    <div class="form-group" style="position:relative;margin-bottom:16px;">
+      <label style="display:block;margin-bottom:6px;">User Account No:</label>
+      <input type="text" id="withdrawUserAccount" placeholder="Enter Account No" style="width:100%;padding:10px 12px;border:4px solid black;border-radius:8px;font-size:16px;background:#fff;outline:none;">
+    </div>
+    <div class="form-group" style="position:relative;margin-bottom:16px;">
+      <label style="display:block;margin-bottom:6px;">Amount:</label>
+      <input type="number" id="withdrawAmount" placeholder="Enter Amount" style="width:100%;padding:10px 12px;border:4px solid black;border-radius:8px;font-size:16px;background:#fff;outline:none;">
+    </div>
+    <div class="form-group" style="position:relative;margin-bottom:16px;">
+      <label style="display:block;margin-bottom:6px;">Confirm Password:</label>
+      <input type="password" id="withdrawPassword" placeholder="Enter Password" style="width:100%;padding:10px 12px;border:4px solid black;border-radius:8px;font-size:16px;background:#fff;outline:none;">
+      <i class="fas fa-eye toggle-eyes" onclick="togglePassword('withdrawPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);cursor:pointer;color:#000;font-size:18px;"></i>
+    </div>
+    <button class="save-btn" onclick="submitWithdraw()" style="width:100%;padding:12px;background:#000;color:#fff;border:none;border-radius:10px;font-size:16px;cursor:pointer;">Submit Withdrawal</button>
+  </div>
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+const firebaseConfig = {
+    apiKey:"AIzaSyAtqi7D6Pn6JOdrscG1gBbpaB2R3PA_3Fk",
+    authDomain:"srabonprogrammer-98739.firebaseapp.com",
+    databaseURL:"https://srabonprogrammer-98739-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId:"srabonprogrammer-98739",
+    storageBucket:"srabonprogrammer-98739.appspot.com",
+    messagingSenderId:"213761619015",
+    appId:"YOUR_REAL_APP_ID"
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.database();
+
+// User Auth & Profile Load
+auth.onAuthStateChanged(async user=>{
+    if(!user){window.location.href="UserLogin.html";return;}
+    const userRef=db.ref("users/"+user.uid);
+    let snap = await userRef.once("value");
+    let d = snap.val();
+    if(!d){
+        d = {email:user.email, username:"New User", dob:"Not Set", gender:"Not Set", phone:"Not Set", MainBalance:0};
+        await userRef.set(d);
+    }
+    document.getElementById("pEmail").innerText = d.email??"Not Set";
+    document.getElementById("pUsername").innerText = d.username??"Not Set";
+    document.getElementById("pUid").innerText = user.uid;
+    document.getElementById("pDob").innerText = d.dob??"Not Set";
+    document.getElementById("pGender").innerText = d.gender??"Not Set";
+    document.getElementById("pPhone").innerText = d.phone??"Not Set";
+
+    const balanceSpan = document.getElementById("pBalance");
+    const userBalanceRef = db.ref("users/"+user.uid+"/MainBalance");
+    userBalanceRef.on("value",snap=>{
+        balanceSpan.dataset.hiddenBalance = snap.val()??0;
+        if(balanceSpan.classList.contains("fa-eye-slash") || !balanceSpan.innerText.includes("TK")) return;
+        balanceSpan.innerText = snap.val()+" TK";
+    });
+});
+
+// Toggle Balance Visibility
+function toggleBalance(icon){
+    const balanceSpan=document.getElementById("pBalance");
+    if(icon.classList.contains("fa-eye")){
+        balanceSpan.innerText="**** TK";
+        icon.classList.replace("fa-eye","fa-eye-slash");
+    }else{
+        balanceSpan.innerText=(balanceSpan.dataset.hiddenBalance??0)+" TK";
+        icon.classList.replace("fa-eye-slash","fa-eye");
+    }
+}
+
+// Toggle Password Visibility
+function togglePassword(id,icon){
+    const input=document.getElementById(id);
+    if(input.type==="password"){input.type="text";icon.classList.replace("fa-eye","fa-eye-slash");}
+    else{input.type="password";icon.classList.replace("fa-eye-slash","fa-eye");}
+}
+
+// Save Profile Changes
+async function saveChanges(){
+    const user=auth.currentUser;
+    if(!user)return;
+    const newUsername=document.getElementById("newUsername").value.trim();
+    const newDob=document.getElementById("newDob").value;
+    const newGender=document.getElementById("newGender").value;
+    const newPhone=document.getElementById("newPhone").value.trim();
+    const oldPass=document.getElementById("oldPassword").value;
+    const newPass=document.getElementById("newPassword").value;
+    const confirm=document.getElementById("confirmPassword").value;
+
+    if(newPass||confirm){
+        if(!oldPass){showToast("Enter old password!");return;}
+        if(newPass!==confirm){showToast("Password mismatch!");return;}
+        try{
+            const cred=firebase.auth.EmailAuthProvider.credential(user.email,oldPass);
+            await user.reauthenticateWithCredential(cred);
+            await user.updatePassword(newPass);
+            showToast("Password updated successfully!");
+        }catch(e){showToast("Wrong password!");return;}
+    }
+
+    if(newUsername){
+        const usernameSnap=await db.ref("users").orderByChild("username").equalTo(newUsername).once("value");
+        if(usernameSnap.exists()){showToast("Username already taken!");return;}
+    }
+    if(newPhone){
+        const phoneSnap=await db.ref("users").orderByChild("phone").equalTo(newPhone).once("value");
+        if(phoneSnap.exists()){showToast("Phone number already used!");return;}
+    }
+
+    const updates={};
+    if(newUsername)updates.username=newUsername;
+    if(newDob)updates.dob=newDob;
+    if(newGender)updates.gender=newGender;
+    if(newPhone)updates.phone=newPhone;
+
+    if(Object.keys(updates).length>0)await db.ref("users/"+user.uid).update(updates);
+    showToast("Profile updated!");
+    closeEditModal();
+    location.reload();
+}
+
+// Deposit Submission with Amount Check
+async function submitDeposit(){
+    const method=document.getElementById("depositMethod").value;
+    const amount=parseFloat(document.getElementById("depositAmount").value);
+    const txnId=document.getElementById("depositTxnId").value.trim();
+
+    if(!method||!amount||!txnId){showToast("Fill all fields!");return;}
+    if(amount < 100 || amount > 25000){showToast("Deposit amount must be between 100 - 25,000 TK!"); return;}
+
+    const user=auth.currentUser;
+    if(!user)return;
+    const depositRef=db.ref("deposits").push();
+    await depositRef.set({uid:user.uid,method,amount,txnId,status:"pending"});
+    showToast("Deposit submitted! Admin approval pending.");
+    closeDepositModal();
+}
+
+// Withdrawal Submission with Amount Check
+async function submitWithdraw(){
+    const method=document.getElementById("withdrawMethod").value;
+    const account=document.getElementById("withdrawUserAccount").value.trim();
+    const amount=parseFloat(document.getElementById("withdrawAmount").value);
+    const password=document.getElementById("withdrawPassword").value;
+
+    if(!method||!account||!amount||!password){showToast("Fill all fields!");return;}
+    if(amount < 100 || amount > 20000){showToast("Withdrawal amount must be between 100 - 20,000 TK!"); return;}
+
+    const user=auth.currentUser;
+    if(!user)return;
+
+    try{
+        const cred=firebase.auth.EmailAuthProvider.credential(user.email,password);
+        await user.reauthenticateWithCredential(cred);
+    }catch(e){showToast("Wrong password!");return;}
+
+    const userBalRef=db.ref("users/"+user.uid+"/MainBalance");
+    let balanceSnap=await userBalRef.once("value");
+    let balance=balanceSnap.val()??0;
+    if(amount>balance){showToast("Insufficient balance!");return;}
+
+    await userBalRef.set(balance-amount);
+    const withdrawRef=db.ref("withdrawals").push();
+    await withdrawRef.set({uid:user.uid,method,account,amount,status:"pending"});
+    showToast("Withdrawal submitted! Amount deducted. Admin approval pending.");
+    closeWithdrawModal();
+}
+
+// Admin Approve / Reject Functions
+async function adminApproveDeposit(depositId){
+    const depositRef=db.ref("deposits/"+depositId);
+    const snap=await depositRef.once("value");
+    if(!snap.exists())return;
+    const data=snap.val();
+    if(data.status!=="pending")return;
+
+    const finalAmount = data.amount * 1.05;
+    const userBalRef=db.ref("users/"+data.uid+"/MainBalance");
+    const balanceSnap=await userBalRef.once("value");
+    const currentBalance=balanceSnap.val()??0;
+
+    await userBalRef.set(currentBalance + finalAmount);
+    await depositRef.update({status:"approved"});
+}
+
+async function adminRejectDeposit(depositId){
+    const depositRef=db.ref("deposits/"+depositId);
+    await depositRef.update({status:"rejected"});
+}
+
+async function adminApproveWithdraw(withdrawId){
+    const withdrawRef=db.ref("withdrawals/"+withdrawId);
+    await withdrawRef.update({status:"approved"});
+}
+
+async function adminRejectWithdraw(withdrawId){
+    const withdrawRef=db.ref("withdrawals/"+withdrawId);
+    const snap=await withdrawRef.once("value");
+    if(!snap.exists())return;
+    const data=snap.val();
+
+    const userBalRef=db.ref("users/"+data.uid+"/MainBalance");
+    const balanceSnap=await userBalRef.once("value");
+    const currentBalance=balanceSnap.val()??0;
+
+    await userBalRef.set(currentBalance + data.amount);
+    await withdrawRef.update({status:"rejected"});
+}
+
+// Modal & UI Functions
+function openEditModal(){document.getElementById("editModal").style.display="flex";}
+function closeEditModal(){document.getElementById("editModal").style.display="none";}
+function openDepositModal(){document.getElementById("depositModal").style.display="flex";}
+function closeDepositModal(){document.getElementById("depositModal").style.display="none";}
+function openWithdrawModal(){document.getElementById("withdrawModal").style.display="flex";}
+function closeWithdrawModal(){document.getElementById("withdrawModal").style.display="none";}
+function logoutUser(){auth.signOut().then(()=>window.location.href="UserLogin.html");}
+function gotoHome(){window.location.href="index.html";}
+function copyUid(){navigator.clipboard.writeText(document.getElementById("pUid").innerText);showToast("UID copied!");}
+function copyAdminAccount(){navigator.clipboard.writeText(document.getElementById("adminAccount").value);showToast("Admin Account copied!");}
+
+// Click outside modal to close
+window.onclick=e=>{
+    if(e.target==document.getElementById("editModal"))closeEditModal();
+    if(e.target==document.getElementById("depositModal"))closeDepositModal();
+    if(e.target==document.getElementById("withdrawModal"))closeWithdrawModal();
+}
+
+// Toast Message Function
+function showToast(msg){
+    const t=document.createElement("div");
+    t.className="toast";
+    t.innerText=msg;
+    document.body.appendChild(t);
+    setTimeout(()=>{t.remove();},2500);
+}
+</script>
+</body>
+</html>
