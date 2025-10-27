@@ -1,0 +1,254 @@
+:root {
+  --blue-1: #0b69d6;
+  --blue-2: #5cd4ff;
+  --bg: #071028;
+  --card: rgba(11, 18, 32, 0.9);
+  --accent: #ffd166;
+  --safe-1: #2dd4bf;
+  --safe-2: #7ee7f5;
+  --bomb-1: #ff5a5a;
+  --bomb-2: #ff2f2f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+body {
+  background: url("../images/ponno.jpg") no-repeat center center scroll;
+  background-size: cover;
+  font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+  color: #e6f7ff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 0; 
+}
+
+.card {
+  width: min(720px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto; 
+  background: var(--card);
+  border: 4px solid #000;
+  border-radius: 32px;
+  padding: 28px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 28px;
+  color: var(--blue-2);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.board-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding-top: 8px;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 70px);
+  grid-template-rows: repeat(5, 70px);
+  gap: 10px;
+  justify-content: center;
+}
+
+.cell {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, var(--blue-1), var(--blue-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.cell:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+}
+
+.cell:active {
+  transform: scale(0.97);
+}
+
+.safe {
+  background: linear-gradient(180deg, var(--safe-1), var(--safe-2));
+  color: #013333;
+  font-weight: 800;
+}
+
+.bomb {
+  background: linear-gradient(180deg, var(--bomb-1), var(--bomb-2));
+  color: #fff;
+  font-weight: 800;
+}
+
+.revealed {
+  opacity: 1;
+  cursor: default;
+}
+
+.explode {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.bomb-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bomb-btn {
+  background: linear-gradient(90deg, #0ea5e9, #60a5fa);
+  color: #031028;
+  border: 4px solid white;
+  border-radius: 8px;
+  padding: 8px 15px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.bomb-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+}
+
+.bomb-control input {
+  width: 60px;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 27px;
+  border: 4px solid #0b69d6;
+  padding: 8px 14px;
+  font-size: 16px;
+}
+
+.btn {
+  background: linear-gradient(90deg, #0ea5e9, #60a5fa);
+  color: #031028;
+  border: 4px solid white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.5);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  font-family: 'Hind Siliguri', 'Noto Sans Bengali', 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.55);
+}
+
+.footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.counter {
+  color: #a8e8ff;
+  font-weight: 700;
+}
+
+.balance-wrap {
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffd166;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  margin-bottom: 12px;
+}
+
+@media (max-width: 520px) {
+  .board {
+    grid-template-columns: repeat(5, 56px);
+    grid-template-rows: repeat(5, 56px);
+    gap: 8px;
+  }
+  .cell {
+    width: 56px;
+    height: 56px;
+    font-size: 20px;
+  }
+  .bomb-control input {
+    width: 50px;
+    font-size: 14px;
+  }
+  .bomb-btn {
+    font-size: 14px;
+    padding: 3px 10px;
+  }
+  .btn {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+  .title {
+    font-size: 22px;
+  }
+  .card {
+    border-radius: 24px;
+    padding: 20px;
+  }
+}
+
+#multiplierDisplay {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.mtext {
+  margin: 0 3px;
+  transition: 0.2s;
+}
+.multiplier-value {
+  font-size: 20px;
+  margin-top: 4px;
+}

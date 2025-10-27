@@ -1,0 +1,232 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Hind Siliguri', 'Poppins', sans-serif;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+
+body {
+    background: url('../images/ponno.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    color: white;
+}
+
+header {
+  background: red;
+  padding: 20px;
+  font-size: 26px;
+  color: white;
+  border-top: 4px solid black;
+  border-bottom: 4px solid black;
+  display: flex;
+  align-items: center;   
+  justify-content: center; 
+  text-align: center;
+  gap: 10px;  
+}
+
+.header-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  border: 3px solid black;
+  object-fit: cover; 
+}
+
+ .span-all {
+  color: gold; 
+  font-weight: bold; 
+}
+
+.haga {
+  background: black;
+  display: block;
+  padding: 25px;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 26px;
+  border: 4px solid black;
+  text-align: center;
+}
+
+.main-content {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 25px;
+    margin: 30px;
+    border-radius: 26px;
+    border: 4px solid black;
+    max-width: 900px;
+    text-align: center;
+}
+
+.haga {
+    font-size: 48px;
+    font-weight: bold;
+    background: url('../images/aviator.png') no-repeat center center;
+    background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: block;
+  padding: 25px;
+  margin: 30px;
+  border-radius: 26px;
+  border: 4px solid black;
+  text-align: center;
+    color: lime;
+    text-shadow: 2px 2px 8px black;
+}
+
+#multiplierBar {
+    width: 100%;
+    height: 20px;
+    background: black;
+    border: 3px solid white;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+#multiplierFill {
+    width: 0%;
+    height: 100%;
+    background: lime;
+    transition: width 0.05s linear;
+}
+
+#crashDisplay {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: aqua;
+}
+
+.balance-box {
+    font-size: 22px;
+    margin: 20px;
+    text-align: center;
+    background: black;
+    padding: 15px;
+    border-radius: 37px;
+}
+
+.make h3 {
+ background: wheat;
+ border-radius: 22px;
+ border-left: 4px solid white;
+ border-right: 4px solid white;
+ margin-left: 20px;
+ margin-right: 20px;
+ margin-bottom: 10px;
+ margin-top: 10px;
+ color: black;
+}
+
+.bet-box {
+    margin: 15px auto;
+}
+
+.bet-box input {
+    padding: 10px;
+    font-size: 18px;
+    width: 120px;
+    margin: 10px;
+    text-align: center;
+    border-radius: 8px;
+    border: 2px solid white;
+    background: black;
+    color: white;
+}
+
+.bet-box button {
+    padding: 10px 25px;
+    margin-left: px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    background: gold;
+    color: black;
+    cursor: pointer;
+}
+
+.bet-box button:hover {
+    background: orange;
+}
+
+.hidden {
+    display: none;
+}
+
+ul#userList {
+    list-style: none;
+    text-align: left;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 2px solid white;
+    margin-top: 10px;
+}
+
+ul#userList li {
+    padding: 8px 12px;
+    border-bottom: 1px solid white;
+    font-size: 16px;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 15px;
+  text-align: center;
+  font-family: 'Hind Siliguri', sans-serif;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  max-width: 90%;
+}
+
+.popup-content h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 25px;
+}
+
+.popup-buttons button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  margin: 0 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popup-buttons button:hover {
+  background: #0056b3;
+}
+
+#noBtn {
+  background: #dc3545;
+}
+
+#noBtn:hover {
+  background: #a71d2a;
+}
