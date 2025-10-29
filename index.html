@@ -8,19 +8,17 @@ ME: Mere Dill Pe!!!
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BetDay | Demo Gaming Site</title>
+<title>BetDay | Just A Project</title>
 <link rel="icon" type="image/png" href="assets/images/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="assets/css/styles.css"> <!-- ME: Dr. Muje Fecture Tik Korna He..!
-DR. Kaha?
-ME: Mere Dill Pe!!!
-<SONG TYPE"START: BELKI;"></SONG>-->
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>  
+
 <header>
  <img src="assets/images/logo.png" alt="Logo" class="header-logo">
-  Bet<span style="margin-left: -10px;" class="span-all">Day</span>
+ Bet<span style="margin-left: -10px;" class="span-all">Day</span>
 </header>
 
 <marquee><i class="fas fa-bolt"></i> প্রতি ডিপোজিটে থাকছে ৫% ক্যাশ ব্যাক! এছাড়াও প্রতিদিন লগইন বোনাস হিসেবে থাকছে ১০০ টাকা জেতার সম্ভাবনা!</marquee>
@@ -47,59 +45,16 @@ ME: Mere Dill Pe!!!
 
 <div class="hisab">
   <h2><i class="fas fa-gamepad"></i> আমাদের জনপ্রিয় গেমস এর তালিকা!</h2>
-  <div id="google_translate_element" style="display:none;"></div>
 </div>
 
-<!-- ME: Dr. Muje Fecture Tik Korna He..!
-DR. Kaha?
-ME: Mere Dill Pe!!!
-<SONG TYPE"START: BELKI;"></SONG>-->
-
 <div class="game-section">  
-  <h3>সব গেমস একসাথে!</h3>  
-  <div class="game-types">  
-   <a href="1stDial.html" class="game-card">  
-  <div class="card-image" style="background-image: url('assets/images/1.png');"></div>  
-  <div class="card-text">
-    <i class="fas fa-fighter-jet" style="margin-right: 8px;"></i> AviaMasters!
-  </div>  
-</a>  
+  <h3>সব গেমস একসাথে!</h3>    
+  <div class="game-types"></div>  
+</div>
 
-<a href="2ndDial.html" class="game-card">  
-  <div class="card-image" style="background-image: url('assets/images/2.png');"></div>  
-  <div class="card-text">
-    <i class="fas fa-bomb" style="margin-right: 8px;"></i> Mines!
-  </div>  
-</a>  
-
-<a href="3rdDial.html" class="game-card">  
-  <div class="card-image" style="background-image: url('assets/images/3.png');"></div>  
-  <div class="card-text">
-    <i class="fas fa-dice" style="margin-right: 8px;"></i> NumberWin!
-  </div>  
-</a>  
-
-<a href="4thDial.html" class="game-card">  
-  <div class="card-image" style="background-image: url('assets/images/4.png');"></div>  
-  <div class="card-text">
-    <i class="fas fa-credit-card" style="margin-right: 8px;"></i> CardsSlot!
-  </div>  
-</a>  
-
-<a href="5thDial.html" class="game-card">  
-  <div class="card-image" style="background-image: url('assets/images/5.png');"></div>  
-  <div class="card-text">
-    <i class="fas fa-plane" style="margin-right: 8px;"></i> Aviator!
-  </div>  
-</a>  
-
-<a href="6thDial.html" class="game-card">  
-  <div class="card-image" style="background-image: url('assets/images/6.png');"></div>  
-  <div class="card-text">
-    <i class="fas fa-building" style="margin-right: 8px;"></i> Towers!
-  </div>  
-</a>
-  </div>  
+<div id="gameFullScreen" class="game-fullscreen">
+  <span class="close-fullscreen" onclick="closeGame()">&times;</span>
+  <iframe id="gameFrame" src="" frameborder="0"></iframe>
 </div>
 
 <div class="contact-menu">
@@ -111,13 +66,95 @@ ME: Mere Dill Pe!!!
   </div>
 </div>
 
+<div class="navbar">
+  <a href="index.html" class="nav-item active"><i class="fa-solid fa-house"></i> হোম</a>
+  <a href="#" style="margin-left: -10px;" class="nav-item" id="profile-btn"><i class="fa-solid fa-globe"></i> ভাষা সিলেক্টর</a>
+  <a style="margin-left: -10px;" href="#" class="nav-item" id="rewards-btn"><i class="fa-solid fa-money-bill-wave-alt"></i> রিওয়ার্ডস</a>
+  <a href="#" class="nav-item" id="news-btn"><i class="fas fa-newspaper"></i> নিউজ</a>
+  <a href="#" class="nav-item" id="fclb-db"><i class="fa-solid fa-user"></i> প্রোফাইল</a>
+</div>
+
+<div id="profile-popup" class="popup-menu">
+  <button id="bn-btn" class="active" style="margin-bottom: 20px;"><img src="https://flagcdn.com/bd.svg" class="flag-icon"> বাংলা</button>
+  <button id="en-btn"><img src="https://flagcdn.com/us.svg" class="flag-icon"> English</button>
+</div>
+
+<div id="custom-modal" class="custom-modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <img id="modal-img" class="modal-img" src="">
+    <h2 id="modal-title"></h2>
+    <div class="modal-text" id="modal-text"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-left">
+      <h2><img src="assets/images/logo.png" alt="Logo" class="footer-logo"> Bet<span class="span-all">Day</span> — Demo Gaming UI</h2>
+      <p><i class="fas fa-copyright"></i> এই সাইটের কোনো অংশ বা Ui বা ডিজাইন কপি করা হলে তার বিরুদ্ধে একশন নেওয়া হবে! | Created By <a href="https://XrabonProgrammer.netlify.app/"><span>Xrabon</span></a></p>
+    </div>
+    <div class="footer-right">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>      
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+  </div>
+</footer>
+
+<style>
+.game-fullscreen {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  z-index: 9999;
+}
+.game-fullscreen iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.close-fullscreen {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 32px;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  padding: 2px 10px;
+  transition: 0.3s;
+}
+.close-fullscreen:hover {
+  background: rgba(255, 0, 0, 0.7);
+}
+</style>
+
+<!-- ME: Dr. Muje Fecture Tik Korna He..!
+DR. Kaha?
+ME: Mere Dill Pe!!!
+<SONG TYPE"START: BELKI;"></SONG>-->
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
   const contactBtnEl = document.querySelector('.contact-btn');
   const contactMenuEl = document.querySelector('.contact-menu');
-  const popupMenuEl = document.getElementById('profile-popup');
-  const enBtn = document.getElementById('en-btn');
-  const bnBtn = document.getElementById('bn-btn');
+  contactBtnEl.addEventListener('click', e => {
+    e.stopPropagation();
+    contactMenuEl.classList.toggle('active');
+  });
+  document.addEventListener('click', e => {
+    if (!contactMenuEl.contains(e.target)) contactMenuEl.classList.remove('active');
+  });
+
+  
   const track = document.querySelector('.slider-track');
   const slides = document.querySelectorAll('.slide');
   const dots = document.querySelectorAll('.dot');
@@ -125,15 +162,6 @@ document.addEventListener('DOMContentLoaded', function () {
   let startX = 0;
   let isDragging = false;
   let slideInterval;
-
-  contactBtnEl.addEventListener('click', e => {
-    e.stopPropagation();
-    contactMenuEl.classList.toggle('active');
-  });
-
-  document.addEventListener('click', e => {
-    if (!contactMenuEl.contains(e.target)) contactMenuEl.classList.remove('active');
-  });
 
   function updateSlide() {
     track.style.transition = 'transform 0.5s ease';
@@ -167,13 +195,11 @@ document.addEventListener('DOMContentLoaded', function () {
     isDragging = true;
     track.style.transition = 'none';
   });
-
   track.addEventListener('touchmove', e => {
     if (!isDragging) return;
     const moveX = e.touches[0].clientX - startX;
     track.style.transform = `translateX(${-currentIndex * 100 + moveX / slides[0].clientWidth * 100}%)`;
   });
-
   track.addEventListener('touchend', e => {
     if (!isDragging) return;
     isDragging = false;
@@ -188,89 +214,87 @@ document.addEventListener('DOMContentLoaded', function () {
   updateSlide();
   startAutoSlide();
 
+  
+  const popupMenuEl = document.getElementById('profile-popup');
+  const bnBtn = document.getElementById('bn-btn');
+  const enBtn = document.getElementById('en-btn');
+  const profileBtn = document.getElementById('profile-btn');
+
   function setActiveBtn(activeBtn) {
     bnBtn.classList.remove('active');
     enBtn.classList.remove('active');
     activeBtn.classList.add('active');
   }
 
-  bnBtn.addEventListener('click', e => {
-    e.preventDefault();
-    setActiveBtn(bnBtn);
-    popupMenuEl.style.display = 'none';
-    window.location.href = '#';
-  });
+  bnBtn.addEventListener('click', e => { e.preventDefault(); setActiveBtn(bnBtn); popupMenuEl.style.display = 'none'; window.location.href = '#'; });
+  enBtn.addEventListener('click', e => { e.preventDefault(); setActiveBtn(enBtn); popupMenuEl.style.display = 'none'; window.location.href = 'https://translate.google.com/translate?sl=auto&tl=en&u=' + encodeURIComponent(window.location.href); });
 
-  enBtn.addEventListener('click', e => {
-    e.preventDefault();
-    setActiveBtn(enBtn);
-    popupMenuEl.style.display = 'none';
-    window.location.href =
-      'https://translate.google.com/translate?sl=auto&tl=en&u=' +
-      encodeURIComponent(window.location.href);
-  });
-  const profileBtn = document.getElementById('profile-btn');
-  profileBtn.addEventListener('click', e => {
-    e.preventDefault();
-    popupMenuEl.style.display =
-      popupMenuEl.style.display === 'block' ? 'none' : 'block';
-  });
+  profileBtn.addEventListener('click', e => { e.preventDefault(); popupMenuEl.style.display = popupMenuEl.style.display === 'block' ? 'none' : 'block'; });
+  document.addEventListener('click', e => { if (!popupMenuEl.contains(e.target) && !profileBtn.contains(e.target)) popupMenuEl.style.display = 'none'; });
 
-  document.addEventListener('click', e => {
-    if (!popupMenuEl.contains(e.target) && !profileBtn.contains(e.target)) {
-      popupMenuEl.style.display = 'none';
+  
+  const navbarLinks = [
+    { id: "fclb-db", href: "UserProfileDashboard.html" },
+    { id: "news-btn", href: "BetDayNews.html" },
+    { id: "rewards-btn", href: "Rewards.html" }
+  ];
+
+  navbarLinks.forEach(link => {
+    const el = document.getElementById(link.id);
+    if(el){
+      el.addEventListener('click', e => { e.preventDefault(); openFullscreen(link.href); });
     }
   });
+
+  const games = [
+    { name: "Aviator!", file: "5thDial.html", icon: "fa-plane", image: "assets/images/5.png" },
+    { name: "Mines!", file: "2ndDial.html", icon: "fa-bomb", image: "assets/images/2.png" },
+    { name: "NumberWin!", file: "3rdGame.html", icon: "fa-dice", image: "assets/images/3.png" },
+    { name: "CardsSlot!", file: "4thGame.html", icon: "fa-credit-card", image: "assets/images/4.png" },
+    { name: "AviaMasters!", file: "AviaMasters.html", icon: "fa-fighter-jet", image: "assets/images/1.png" },
+    { name: "Towers!", file: "Towers.html", icon: "fa-building", image: "assets/images/6.png" }
+  ];
+
+  const container = document.querySelector('.game-types');
+  container.innerHTML = games.map(game => `
+    <a href="#" class="game-card" data-game="${game.file}">
+      <div class="card-image" style="background-image:url('${game.image}')"></div>
+      <div class="card-text"><i class="fas ${game.icon}" style="margin-right:8px;"></i>${game.name}</div>
+    </a>
+  `).join('');
+
+  document.querySelectorAll('.game-card').forEach(card => {
+    card.addEventListener('click', e => { e.preventDefault(); openFullscreen(card.dataset.game); });
+  });
+
+  // ===== Fullscreen Functions =====
+  function openFullscreen(url){
+    const gameFullScreen = document.getElementById('gameFullScreen');
+    const gameFrame = document.getElementById('gameFrame');
+    if(!navigator.onLine){ gameFrame.src=''; gameFullScreen.style.display='block'; document.body.style.overflow='hidden'; return; }
+    gameFrame.src = url;
+    gameFullScreen.style.display = 'block';
+    document.body.style.overflow='hidden';
+  }
+  window.closeGame = function(){
+    const gameFullScreen = document.getElementById('gameFullScreen');
+    const gameFrame = document.getElementById('gameFrame');
+    gameFullScreen.style.display='none';
+    gameFrame.src='';
+    document.body.style.overflow='auto';
+  }
 });
 </script>
 
-
-<footer>
-  <div class="footer-container">
-    <div class="footer-left">
-      <h2><img src="assets/images/logo.png" alt="Logo" class="footer-logo"> Bet<span class="span-all">Day</span> — Demo Gaming UI</h2>
-      <p><i class="fas fa-copyright"></i> এই সাইটের কোনো অংশ বা Ui বা ডিজাইন কপি করা হলে তার বিরুদ্ধে একশন নেওয়া হবে! | Created By <a href="https://XrabonProgrammer.netlify.app/"><span>Xrabon</span></a></p>
-    </div>
-    <div class="footer-right">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>      
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fab fa-youtube"></i></a>
-    </div>
-  </div>
-</footer>
-
-<div class="navbar">
-  <a href="index.html" class="nav-item active"><i class="fa-solid fa-house"></i> হোম</a>
-  <a href="#" style="margin-left: -10px;" class="nav-item" id="profile-btn"><i class="fa-solid fa-globe"></i> ভাষা সিলেক্টর</a>
-  <a style="margin-left: -10px;" href="#" class="nav-item"><i class="fa-solid fa-money-bill-wave-alt"></i> রিয়ার্ডস</a>
-  <a href="BetDayNews.html" class="nav-item" id="news-btn">
-    <i class="fas fa-newspaper"></i> নিউজ
-  </a>
-  <a href="UserHist.html" class="nav-item" id="profile-btn"><i class="fa-solid fa-user"></i> প্রোফাইল</a>
-</div>
-
-<div id="profile-popup" class="popup-menu">
-  <button id="bn-btn" class="active" style="margin-bottom: 20px;"><img src="https://flagcdn.com/bd.svg" class="flag-icon"> বাংলা</button>
-  <button id="en-btn"><img src="https://flagcdn.com/us.svg" class="flag-icon"> English</button>
-</div>
-
-<div id="custom-modal" class="custom-modal">
-  <div class="modal-content">
-    <span class="close-btn">&times;</span>
-    <img id="modal-img" class="modal-img" src="">
-    <h2 id="modal-title"></h2>
-    <div class="modal-text" id="modal-text"></div>
-  </div>
-</div>
 <script src="assets/js/preloader.js"></script>
 <script src="assets/js/lightbox.js"></script>
 <script type="module" src="assets/js/search.js"></script>
-
 <script src="assets/js/script.js"></script>
+
+</body>
+</html>
 
 <!-- ME: Dr. Muje Fecture Tik Korna He..!
 DR. Kaha?
 ME: Mere Dill Pe!!!
 <SONG TYPE"START: BELKI;"></SONG>-->
-</body>
-</html>
